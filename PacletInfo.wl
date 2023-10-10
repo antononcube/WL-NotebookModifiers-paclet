@@ -7,7 +7,7 @@ PacletObject[
     "Creator" -> "Anton Antonov",
     "License" -> "MIT",
     "PublisherID" -> "AntonAntonov",
-    "Version" -> "1.0.0",
+    "Version" -> "1.0.1",
     "WolframVersion" -> "12.2+",
     "Extensions" -> {
       {
@@ -23,7 +23,8 @@ PacletObject[
           "AntonAntonov`NotebookModifiers`CellPrintPython",
           "AntonAntonov`NotebookModifiers`CellPrintR",
           "AntonAntonov`NotebookModifiers`CellPrintWL",
-          "AntonAntonov`NotebookModifiers`DeleteCells"
+          "AntonAntonov`NotebookModifiers`DeleteCells",
+          "AntonAntonov`NotebookModifiers`FindStyleSheet"
         }
       },
       {

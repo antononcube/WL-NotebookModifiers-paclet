@@ -19,6 +19,9 @@ CellPrintPython::usage = "CellPrintPython[s_String]";
 
 CellPrintAndRunPython::usage = "CellPrintAndRunPython[s_String]";
 
+FindStyleSheet::usage = "FindStyleSheet[nb: (_NotebookObject| _String)] finds the style of the given notebook.
+FindStyleSheet[] finds the style of the current notebook.";
+
 Begin["`Private`"];
 
 (*===========================================================*)
@@ -88,6 +91,29 @@ aTargetLanguageToCellPrintFunc =
 aTargetLanguageToCellPrintAndRunFunc =
     <| "R" -> CellPrintAndRunR, "Python" -> CellPrintAndRunPython, "Julia" -> CellPrintAndRunJulia, "WL" -> CellPrintAndRunWL|>;
 
+
+(*===========================================================*)
+(* FindStyleSheet                                            *)
+(*===========================================================*)
+(* See https://mathematica.stackexchange.com/a/139349/34008 *)
+
+FindStyleSheet[] := FindStyleSheet[EvaluationNotebook[]];
+
+FindStyleSheet[nb_NotebookObject] :=
+    FindStyleSheet[CurrentValue[nb, StyleDefinitions]];
+
+FindStyleSheet[stylesheet : (_FileName | _FrontEnd`FileName)] :=
+    FindStyleSheet@ToFileName@stylesheet;
+
+FindStyleSheet[string_String?FileExistsQ] := string;
+
+FindStyleSheet[string_String] :=
+    Block[{$Path = ToFileName /@ AbsoluteCurrentValue[StyleSheetPath]},
+      FindFile[string]];
+
+FindStyleSheet[___] :=
+    Failure["argpatt",
+      "Message" -> StringTemplate[General::argpatt][FindStyleSheet]];
 
 End[];
 EndPackage[];
